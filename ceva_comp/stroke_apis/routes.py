@@ -57,4 +57,4 @@ def send_texting_test():
 @app.route('/send_final_result', methods=['GET', 'POST'])
 def send_final_result():
     if request.method == "POST":
-        pass
+        print('ceva')
