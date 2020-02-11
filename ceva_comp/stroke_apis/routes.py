@@ -2,9 +2,10 @@ from flask import request, jsonify
 from stroke_apis import app, conn
 import json
 from werkzeug.utils import secure_filename
-from preprocessing_detectionv2 import preprocessing_images
-from preprocessing_detectionv2 import preprocessing_voices_and_text
-import os, random
+from detection import preprocessing_images
+from detection import preprocessing_voices_and_text
+import os, random,json
+
 
 
 @app.route('/check_symmetry_send_img', methods=['GET', 'POST'])
@@ -32,29 +33,33 @@ def get_voices():
 def parse_voice():
     if request.method == "POST":
         # recordingul
+        preprocess = preprocessing_voices_and_text.preprocess_data()
         f = request.files['recording']
         # id-ul textului
         id_text = request.form.getlist('id_text')
         filename = f.filename
         f.save(os.path.join(app.config['UPLOAD_FOLDER_RECORDINGS'], filename))
         # aflam ce a zis de fapt vorbitorul
-        said = preprocessing_voices_and_text.get_text_from_wav(
+        said = preprocess.get_text_from_wav(
             os.path.join(app.config['UPLOAD_FOLDER_RECORDINGS'], filename))
         # vrem sa determinam asemanarea dintre ce a zis si ce trebuia sa zica
-        nr_mistakes = preprocessing_voices_and_text.check_slurred_speech(said, int(id_text[0]))
+        nr_mistakes = preprocess.check_slurred_speech(said, int(id_text[0]))
     return jsonify(nr_mistakes)
 
 
 @app.route('/send_texting_test', methods=['GET', 'POST'])
 def send_texting_test():
     if request.method == 'POST':
+        preprocess = preprocessing_voices_and_text.preprocess_data()
         id_text = int(request.form.getlist('id_text')[0])
         input_text = request.form.getlist('input_text')[0]
-        differences = preprocessing_voices_and_text.check_similarity(id_text, input_text)
+        # print(id_text)
+        differences = preprocess.check_similarity(id_text, input_text)
     return jsonify({"mistakes": differences[0], "total_letters": differences[1]})
 
 
 @app.route('/send_final_result', methods=['GET', 'POST'])
 def send_final_result():
     if request.method == "POST":
-        print('ceva')
+        data = request.get_json()
+
