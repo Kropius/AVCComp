@@ -93,7 +93,23 @@ class preprocess_data:
             cv2.waitKey(0)
             # build_input_from_photo(output_coords)
 
-        return self.build_input_from_photo(output_coords)
+        return output_coords
+
+    def return_face_parts(self, image_path):
+        """
+        :param image_path: All the coordinates from body faces
+        :return:
+        """
+        return self.build_input_from_photo(self.detecting_face_parts(image_path))
+
+    def return_smile_corners(self, image_path):
+        """
+        :param output_coords: All the coordinates from body faces
+        :return: returning only the corners of the mouth
+        """
+        full_output = self.build_input_from_photo(self.detecting_face_parts(image_path))
+        return {'left_mouth_corner': full_output['left_mouth_corner'],
+                'right_mouth_corner': full_output['right_mouth_corner']}
 
     def build_input_from_photo(self, array_of_coordinates):
         array_of_coordinates = {x: y for i in array_of_coordinates for x, y in i.items()}
@@ -108,7 +124,7 @@ class preprocess_data:
         output['right_eye'] = right_eye
         output['left_mouth_corner'] = array_of_coordinates['mouth'][0]
         output['right_mouth_corner'] = array_of_coordinates['mouth'][6]
-        print(output)
+
         return output
 
     def prepare_mouth(self, mouth):
@@ -122,3 +138,6 @@ class preprocess_data:
         # mean_right, variance_right = get_mean_variance(right_side)
         print(left_side, right_side)
         return left_side, right_side
+
+    def build_data_for_decision(self,data):
+        pass

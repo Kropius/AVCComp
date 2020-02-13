@@ -6,6 +6,18 @@ from keras.datasets import mnist
 import numpy as np
 from keras.utils import to_categorical
 
+
+class builder:
+    def __init__(self, data):
+        self.mouth = (data['left_mouth'], data['right_mouth'])
+        self.corners = (data['left_mouth_corner'], data['right_mouth_corner'])
+        self.left_eye = data['left_eye']
+        self.right_eye = data['right_eye']
+        self.smiley_corners = data['smiley_corners']
+        self.texting_test = data['texting_test']
+        self.speech_test = data['speech_test']
+
+
 def build_neural(learning_rate, input_size, layer1_size, layer2_size, output_size):
     model = Sequential(
         [Dense(layer1_size, input_shape=input_size),
@@ -14,20 +26,20 @@ def build_neural(learning_rate, input_size, layer1_size, layer2_size, output_siz
          Activation("relu"),
          Dense(output_size), Activation("softmax")]
     )
-    model.compile(loss = 'mean_squared_error',optimizer='adagrad',metrics=['accuracy'])
+    model.compile(loss='mean_squared_error', optimizer='adagrad', metrics=['accuracy'])
     return model
 
 
 def load(file_path):
     return load_model(file_path, compile=True)
 
+
 def train():
     pass
 
+
 def preditct():
     pass
-
-
 
 
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
@@ -42,9 +54,9 @@ Y_train = to_categorical(y_train, n_classes)
 Y_test = to_categorical(y_test, n_classes)
 print("Shape after one-hot encoding: ", Y_train.shape)
 
-model = build_neural(0.05,(784,),512,512,10)
+model = build_neural(0.05, (784,), 512, 512, 10)
 print(X_train)
 history = model.fit(X_train, Y_train,
-          batch_size=128, epochs=20,
-          verbose=2,
-          validation_data=(X_test, Y_test))
+                    batch_size=128, epochs=20,
+                    verbose=2,
+                    validation_data=(X_test, Y_test))

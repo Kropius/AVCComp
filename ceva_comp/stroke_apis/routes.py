@@ -4,8 +4,7 @@ import json
 from werkzeug.utils import secure_filename
 # from detection import preprocessing_images
 from detection import preprocessing
-import os, random,json
-
+import os, random, json
 
 
 @app.route('/check_symmetry_send_img', methods=['GET', 'POST'])
@@ -17,10 +16,9 @@ def check_symmetry():
         f = request.files['image']
         filename = f.filename
         f.save(os.path.join(app.config['UPLOAD_FOLDER_PHOTOS'], filename))
-        print(
-            list(preprocess.detecting_face_parts(os.path.join(app.config['UPLOAD_FOLDER_PHOTOS'], filename))))
+
     return jsonify(
-        preprocess.detecting_face_parts(os.path.join(app.config['UPLOAD_FOLDER_PHOTOS'], filename)))
+        preprocess.return_face_parts(os.path.join(app.config['UPLOAD_FOLDER_PHOTOS'], filename)))
 
 
 @app.route('/get_text', methods=['GET'])
@@ -60,8 +58,20 @@ def send_texting_test():
     return jsonify({"mistakes": differences[0], "total_letters": differences[1]})
 
 
+@app.route('/get_smiley_corners', methods=['GET', 'POST'])
+def get_smiley_corners():
+    if request.method == 'POST':
+        preprocess = preprocessing.preprocess_data()
+        smiley_data = request.get_json()
+        print(smiley_data)
+    return jsonify(smiley_data)
+
+
 @app.route('/send_final_result', methods=['GET', 'POST'])
 def send_final_result():
     if request.method == "POST":
+        preprocess = preprocessing.preprocess_data()
         data = request.get_json()
+        data = preprocess.build_data_for_decision()
 
+    print(data["mouth"], data["smiley_corners"], data["texting_test"], data["speech_test"])
