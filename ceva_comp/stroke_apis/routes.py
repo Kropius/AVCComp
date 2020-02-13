@@ -2,8 +2,8 @@ from flask import request, jsonify
 from stroke_apis import app, conn
 import json
 from werkzeug.utils import secure_filename
-from detection import preprocessing_images
-from detection import preprocessing_voices_and_text
+# from detection import preprocessing_images
+from detection import preprocessing
 import os, random,json
 
 
@@ -11,14 +11,16 @@ import os, random,json
 @app.route('/check_symmetry_send_img', methods=['GET', 'POST'])
 def check_symmetry():
     if request.method == 'POST':
+        preprocess = preprocessing.preprocess_data()
+
         # print(request.files)
         f = request.files['image']
         filename = f.filename
         f.save(os.path.join(app.config['UPLOAD_FOLDER_PHOTOS'], filename))
         print(
-            list(preprocessing_images.detecting_face_parts(os.path.join(app.config['UPLOAD_FOLDER_PHOTOS'], filename))))
+            list(preprocess.detecting_face_parts(os.path.join(app.config['UPLOAD_FOLDER_PHOTOS'], filename))))
     return jsonify(
-        preprocessing_images.detecting_face_parts(os.path.join(app.config['UPLOAD_FOLDER_PHOTOS'], filename)))
+        preprocess.detecting_face_parts(os.path.join(app.config['UPLOAD_FOLDER_PHOTOS'], filename)))
 
 
 @app.route('/get_text', methods=['GET'])
@@ -33,7 +35,7 @@ def get_voices():
 def parse_voice():
     if request.method == "POST":
         # recordingul
-        preprocess = preprocessing_voices_and_text.preprocess_data()
+        preprocess = preprocessing.preprocess_data()
         f = request.files['recording']
         # id-ul textului
         id_text = request.form.getlist('id_text')
@@ -50,7 +52,7 @@ def parse_voice():
 @app.route('/send_texting_test', methods=['GET', 'POST'])
 def send_texting_test():
     if request.method == 'POST':
-        preprocess = preprocessing_voices_and_text.preprocess_data()
+        preprocess = preprocessing.preprocess_data()
         id_text = int(request.form.getlist('id_text')[0])
         input_text = request.form.getlist('input_text')[0]
         # print(id_text)
