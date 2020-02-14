@@ -16,6 +16,12 @@ class TextViewController: UIViewController, UINavigationControllerDelegate, UITe
     
     var pacientResults: PacientData!
     var text_id: Int!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.async{
+            self.getText()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +29,6 @@ class TextViewController: UIViewController, UINavigationControllerDelegate, UITe
         sendButton.isHidden = true
         sendButton.isEnabled = false
         textField.delegate = self
-        getText()
     }
     
     func getText() {
@@ -98,8 +103,14 @@ class TextViewController: UIViewController, UINavigationControllerDelegate, UITe
                         return
                     }
                     if let data = data {
-                        self.pacientResults.textDetails = data
-                        print(String(data: data, encoding: String.Encoding.utf8))
+                        DispatchQueue.main.async {
+                            self.pacientResults.textDetails = data
+                            print(String(data: data, encoding: String.Encoding.utf8))
+                            if let resultVC = self.storyboard?.instantiateViewController(identifier: "ResultViewController") as? ResultViewController {
+                                resultVC.pacientResult = self.pacientResults
+                                self.navigationController?.pushViewController(resultVC, animated: true)
+                            }
+                        }
                     }
                 })
             }

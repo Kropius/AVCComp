@@ -9,7 +9,8 @@
 import Foundation
 
 struct PacientData {
-    var photoDetails: Data!
+    var firstPhotoDetails: Data!
+    var secondPhotoDetails: Data!
     var recordingDetails: Data!
     var textDetails: Data!
 
@@ -18,7 +19,7 @@ struct PacientData {
         request.httpMethod = method
         if let body = body {
             request.httpBody = body
-            print(String(data: request.httpBody!, encoding: String.Encoding.utf8))
+//            print(String(data: request.httpBody!, encoding: String.Encoding.utf8))
         }
         if let boundary = boundary {
             request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
@@ -60,17 +61,6 @@ struct PacientData {
         body.append("\r\n".data(using: String.Encoding.utf8)!)
         body.append("--\(boundary)--\r\n".data(using: String.Encoding.utf8)!)
 
-        return body as Data
-    }
-    
-    func createBodywithParam(bodyParams: [String: Any], boundary: String) -> Data {
-        let body = NSMutableData()
-        for (key, value) in bodyParams {
-            body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
-            body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: String.Encoding.utf8)!)
-            body.append("\(value)\r\n".data(using: String.Encoding.utf8)!)
-        }
-        body.append("--\(boundary)--\r\n".data(using: String.Encoding.utf8)!)
         return body as Data
     }
 

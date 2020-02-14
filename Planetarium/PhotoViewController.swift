@@ -15,7 +15,8 @@ class PhotoViewController: UIViewController, UINavigationControllerDelegate, UII
     @IBOutlet var takePhotoButton: UIButton!
     @IBOutlet var selectImageFromGalleryButton: UIButton!
     @IBOutlet var sendPhotoButton: UIButton!
-    @IBOutlet var selectedPhoto: UIImageView!
+    @IBOutlet var firstPhoto: UIImageView!
+    @IBOutlet var secondPhoto: UIImageView!
     
     var pacientResults: PacientData!
     
@@ -29,6 +30,9 @@ class PhotoViewController: UIViewController, UINavigationControllerDelegate, UII
         sendPhotoButton.isEnabled = false
         sendPhotoButton.isHidden = true
         pacientResults = PacientData()
+        
+        takePhotoButton.setTitle("Take a normal photo", for: .normal)
+        selectImageFromGalleryButton.setTitle("Select a normal photo from gallery", for: .normal)
     }
     
     @IBAction func takePhoto(sender: Any) {
@@ -71,37 +75,50 @@ class PhotoViewController: UIViewController, UINavigationControllerDelegate, UII
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let img = info[.originalImage] {
-            selectedPhoto.image = img as? UIImage
-            sendPhotoButton.isHidden = false
-            sendPhotoButton.isEnabled = true
+            if firstPhoto.image == nil {
+                firstPhoto.image = img as? UIImage
+                takePhotoButton.setTitle("Take a photo smiling", for: .normal)
+                selectImageFromGalleryButton.setTitle("Select a smiling photo from gallery", for: .normal)
+            } else {
+                secondPhoto.image = img as? UIImage
+                sendPhotoButton.isHidden = false
+                sendPhotoButton.isEnabled = true
+            }
         }
         imagePicker.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func sendPhoto(_ sender: Any) {
+    func sendPhoto(body: Data, boundary: String) {
         guard let url = URL(string: "http://127.0.0.1:5001/check_symmetry_send_img") else {
                    print("Eroare la request image!")
                    return
                }
-        let boundary = pacientResults.generateBoundaryString()
-        let body = pacientResults.createBody(param: "image", data: selectedPhoto.image!.jpegData(compressionQuality: 0.9)!, boundary: boundary, filename: "face_photo.jpg", mimetype: "image/jpg")
         
         pacientResults.request(url: url, method: "POST", body: body, boundary: boundary, pacientCompletionHandler: {data, error in
             if let error = error{
                 print(error)
                 return
-            } else {
+            } else if data != nil {
+//                print(String(data: data!, encoding: String.Encoding.utf8))
                 DispatchQueue.main.async {
-                    self.pacientResults.photoDetails = data
-                    
-                    if let recordVC = self.storyboard?.instantiateViewController(identifier: "RecordViewController") as? RecordViewController {
-                        recordVC.pacientResults = self.pacientResults
-                        self.navigationController?.pushViewController(recordVC, animated: true)
+                    if self.pacientResults.firstPhotoDetails == nil {
+                        self.pacientResults.firstPhotoDetails = data
+                    } else {
+                        self.pacientResults.secondPhotoDetails = data
+                        if let recordVC = self.storyboard?.instantiateViewController(identifier: "RecordViewController") as? RecordViewController {
+                                   recordVC.pacientResults = self.pacientResults
+                                   self.navigationController?.pushViewController(recordVC, animated: true)
+                        }
                     }
                 }
-                
             }
         })
+    }
+    
+    @IBAction func sendPhotosButtonPressed(_ sender: Any) {
+        let boundary = pacientResults.generateBoundaryString()
+        sendPhoto(body: pacientResults.createBody(param: "image", data: firstPhoto.image!.jpegData(compressionQuality: 0.9)!, boundary: boundary, filename: "normal_face_photo.jpg", mimetype: "image/jpg"),boundary: boundary)
+        sendPhoto(body: pacientResults.createBody(param: "image", data: secondPhoto.image!.jpegData(compressionQuality: 0.9)!, boundary: boundary, filename: "smiley_face_photo.jpg", mimetype: "image/jpg"),boundary: boundary)
     }
     
     /*

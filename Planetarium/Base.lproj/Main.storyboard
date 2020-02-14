@@ -75,7 +75,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHw-76-RRC">
-                                <rect key="frame" x="44" y="317" width="232" height="36"/>
+                                <rect key="frame" x="44" y="289" width="232" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Select a photo from gallery"/>
                                 <connections>
@@ -83,61 +83,67 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMV-T3-eps">
-                                <rect key="frame" x="152" y="261" width="16" height="21"/>
+                                <rect key="frame" x="152" y="233" width="16" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jck-Mj-66N">
-                                <rect key="frame" x="40.5" y="20" width="239" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="239" id="5aJ-KF-7Fm"/>
-                                    <constraint firstAttribute="height" constant="128" id="i1J-lb-RZD"/>
-                                </constraints>
+                                <rect key="frame" x="16" y="20" width="128" height="128"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sLv-iD-0rI">
-                                <rect key="frame" x="105" y="197" width="110" height="36"/>
+                                <rect key="frame" x="105" y="169" width="110" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Take a photo"/>
                                 <connections>
                                     <action selector="takePhotoWithSender:" destination="CeJ-f1-cfx" eventType="touchUpInside" id="iWB-eR-Rfs"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aDY-hn-Wcs">
-                                <rect key="frame" x="109.5" y="421" width="101" height="36"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="l7H-KR-L4J">
+                                <rect key="frame" x="176" y="20" width="128" height="128"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aDY-hn-Wcs">
+                                <rect key="frame" x="109.5" y="382" width="101" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Send photo"/>
                                 <connections>
-                                    <action selector="sendPhoto:" destination="CeJ-f1-cfx" eventType="touchUpInside" id="kh3-gt-O6b"/>
+                                    <action selector="sendPhotosButtonPressed:" destination="CeJ-f1-cfx" eventType="touchUpInside" id="OkJ-9J-3gY"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="sLv-iD-0rI" firstAttribute="top" secondItem="jck-Mj-66N" secondAttribute="bottom" constant="49" id="D4a-hZ-tWw"/>
+                            <constraint firstItem="l7H-KR-L4J" firstAttribute="width" secondItem="jck-Mj-66N" secondAttribute="width" id="11k-n9-ego"/>
+                            <constraint firstItem="l7H-KR-L4J" firstAttribute="leading" secondItem="jck-Mj-66N" secondAttribute="trailing" constant="32" id="Ac3-MK-CIB"/>
+                            <constraint firstItem="sLv-iD-0rI" firstAttribute="top" secondItem="jck-Mj-66N" secondAttribute="bottom" constant="21" id="D4a-hZ-tWw"/>
                             <constraint firstItem="sLv-iD-0rI" firstAttribute="centerX" secondItem="Bs6-iR-67P" secondAttribute="centerX" id="DyS-yy-B8o"/>
+                            <constraint firstItem="l7H-KR-L4J" firstAttribute="height" secondItem="jck-Mj-66N" secondAttribute="height" id="KVN-0C-Gs5"/>
                             <constraint firstItem="aDY-hn-Wcs" firstAttribute="centerX" secondItem="dHw-76-RRC" secondAttribute="centerX" id="NRX-fe-rjo"/>
-                            <constraint firstItem="jck-Mj-66N" firstAttribute="centerX" secondItem="Bs6-iR-67P" secondAttribute="centerX" id="Oh6-Ez-rvR"/>
+                            <constraint firstItem="jck-Mj-66N" firstAttribute="leading" secondItem="Bs6-iR-67P" secondAttribute="leading" constant="16" id="RKz-wG-rM8"/>
                             <constraint firstItem="dHw-76-RRC" firstAttribute="centerX" secondItem="xMV-T3-eps" secondAttribute="centerX" id="Scn-Kn-k4c"/>
-                            <constraint firstItem="aDY-hn-Wcs" firstAttribute="top" secondItem="dHw-76-RRC" secondAttribute="bottom" priority="250" constant="170" id="WdQ-mA-4DT"/>
+                            <constraint firstItem="aDY-hn-Wcs" firstAttribute="top" secondItem="dHw-76-RRC" secondAttribute="bottom" priority="250" constant="57" id="WdQ-mA-4DT"/>
                             <constraint firstItem="xMV-T3-eps" firstAttribute="top" secondItem="sLv-iD-0rI" secondAttribute="bottom" constant="28" id="aRY-yl-MIh"/>
                             <constraint firstItem="dHw-76-RRC" firstAttribute="top" secondItem="xMV-T3-eps" secondAttribute="bottom" constant="35" id="ecJ-dL-epS"/>
+                            <constraint firstItem="Bs6-iR-67P" firstAttribute="trailing" secondItem="l7H-KR-L4J" secondAttribute="trailing" constant="16" id="f1B-cb-wRz"/>
                             <constraint firstItem="xMV-T3-eps" firstAttribute="centerX" secondItem="sLv-iD-0rI" secondAttribute="centerX" id="fuV-AJ-wCM"/>
+                            <constraint firstItem="sLv-iD-0rI" firstAttribute="top" secondItem="Bs6-iR-67P" secondAttribute="top" constant="169" id="ge2-h2-Tlj"/>
                             <constraint firstItem="jck-Mj-66N" firstAttribute="top" secondItem="Bs6-iR-67P" secondAttribute="top" constant="20" id="km7-oa-m1p"/>
-                            <constraint firstItem="Bs6-iR-67P" firstAttribute="bottom" secondItem="aDY-hn-Wcs" secondAttribute="bottom" constant="111" id="nQq-bc-i30"/>
+                            <constraint firstItem="l7H-KR-L4J" firstAttribute="top" secondItem="Bs6-iR-67P" secondAttribute="top" constant="20" id="m4H-da-PfC"/>
+                            <constraint firstItem="Bs6-iR-67P" firstAttribute="bottom" secondItem="aDY-hn-Wcs" secondAttribute="bottom" constant="150" id="nQq-bc-i30"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bs6-iR-67P"/>
                     </view>
                     <connections>
+                        <outlet property="firstPhoto" destination="jck-Mj-66N" id="wxN-Js-d1j"/>
+                        <outlet property="secondPhoto" destination="l7H-KR-L4J" id="eRJ-GF-nBQ"/>
                         <outlet property="selectImageFromGalleryButton" destination="dHw-76-RRC" id="zEG-DV-kie"/>
-                        <outlet property="selectedPhoto" destination="jck-Mj-66N" id="j6h-iT-tcd"/>
                         <outlet property="sendPhotoButton" destination="aDY-hn-Wcs" id="ReC-Zf-5uw"/>
                         <outlet property="takePhotoButton" destination="sLv-iD-0rI" id="H2z-Wo-WM4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pEN-wr-uPz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="734" y="374"/>
+            <point key="canvasLocation" x="733.125" y="373.94366197183098"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Agn-7q-det">
@@ -269,6 +275,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n0L-Q1-Ueg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2193.75" y="373.94366197183098"/>
+        </scene>
+        <!--Result View Controller-->
+        <scene sceneID="pPO-cf-Raa">
+            <objects>
+                <viewController storyboardIdentifier="ResultViewController" id="rel-s7-GKI" customClass="ResultViewController" customModule="Planetarium" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UOH-6Q-QXs">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lB1-Hg-oU0">
+                                <rect key="frame" x="16" y="110" width="288" height="26.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="lB1-Hg-oU0" firstAttribute="centerX" secondItem="zrK-Nf-2cY" secondAttribute="centerX" id="S5O-0s-uhP"/>
+                            <constraint firstItem="lB1-Hg-oU0" firstAttribute="top" secondItem="zrK-Nf-2cY" secondAttribute="top" constant="110" id="d9z-RY-BcD"/>
+                            <constraint firstItem="lB1-Hg-oU0" firstAttribute="leading" secondItem="zrK-Nf-2cY" secondAttribute="leading" constant="16" id="o5h-go-TKI"/>
+                            <constraint firstItem="zrK-Nf-2cY" firstAttribute="trailing" secondItem="lB1-Hg-oU0" secondAttribute="trailing" constant="16" id="yaA-tZ-Vwc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zrK-Nf-2cY"/>
+                    </view>
+                    <connections>
+                        <outlet property="resultLabel" destination="lB1-Hg-oU0" id="43e-zz-nXd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nnY-RO-psV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2859.375" y="375"/>
         </scene>
     </scenes>
 </document>
