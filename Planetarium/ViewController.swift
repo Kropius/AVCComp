@@ -13,7 +13,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet var startTestButton: UIButton!
     @IBOutlet var viewMapButton: UIButton!
     @IBOutlet var callButton: UIButton!
-
     
     @IBAction func startTest(sender: Any) {
         if let photoVC = storyboard?.instantiateViewController(identifier: "PhotoViewController") as? PhotoViewController {
