@@ -44,7 +44,7 @@ def parse_voice():
             os.path.join(app.config['UPLOAD_FOLDER_RECORDINGS'], filename))
         # vrem sa determinam asemanarea dintre ce a zis si ce trebuia sa zica
         nr_mistakes = preprocess.check_slurred_speech(said, int(id_text[0]))
-    return jsonify(nr_mistakes)
+    return jsonify({"speech_test":nr_mistakes})
 
 
 @app.route('/send_texting_test', methods=['GET', 'POST'])

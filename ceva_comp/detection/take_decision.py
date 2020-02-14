@@ -20,16 +20,57 @@ class builder:
         self.speech_test = data['speech_test']
         self.distances = (data['upper_point'], data['lower_point'])
         self.distances_smiling = (data['upper_point_smiling'], data['lower_point_smiling'])
-        print(self.calculate_distance_bettween_corners(), self.calculate_distance_bettween_smiling_corners())
+        # print(self.calculate_distance_bettween_corners(), self.calculate_distance_bettween_smiling_corners())
 
-    def calculate_distance_bettween_corners(self):
+    def calculate_asymmetry_mouth(self):
+        left_mean = np.mean(list(map(lambda x: x[1], self.mouth[0])))
+        right_mean = np.mean(list(map(lambda x: x[1], self.mouth[1])))
+        return left_mean, right_mean
+
+    def calculate_asymmetry_eyes(self):
+        left_mean = np.mean(list(map(lambda x: x[1], self.left_eye)))
+        right_mean = np.mean(list(map(lambda x: x[1], self.right_eye)))
+        return left_mean, right_mean
+
+    def calculate_distance_between_corners(self):
         return np.linalg.norm(np.array(self.corners[0]) - np.array(self.corners[1]))
 
     def calculate_distance_bettween_smiling_corners(self):
         return np.linalg.norm(np.array(self.smiley_corners[0]) - np.array(self.smiley_corners[1]))
 
+    def calculcate_vertical_distance(self):
+        return np.linalg.norm(np.array(self.distances[0]) - np.array(self.distances[1]))
+
+    def calculate_vertical_distance_smiling(self):
+        return np.linalg.norm(np.array(self.distances_smiling[0]) - np.array(self.distances_smiling[1]))
+
+    def get_mouth_asymmetry(self):
+        """
+        :return: difference between mean of left mouth and right mouth
+        """
+        left_mean, right_mean = self.calculate_asymmetry_mouth()
+        return abs(left_mean - right_mean)
+
+    def get_eyes_asymmetry(self):
+        """
+        :return: difference bettween mean of left eye and right eye
+        """
+        left_mean, right_mean = self.calculate_asymmetry_eyes()
+        return abs(left_mean - right_mean)
+
+    def get_distance_corners_smiling_normal(self):
+        """
+        :return: difference between normal corners and smiling corners
+        """
+        return abs(self.calculate_distance_bettween_smiling_corners()-self.calculate_distance_between_corners())
+    def get_distance_vertical_smiling_normal(self):
+        """
+        :return:difference bettween normal distance and smiling distance
+        """
+        return abs(self.calculate_vertical_distance_smiling()-self.calculcate_vertical_distance())
+
     def __str__(self):
-       return f"Mouth details are:\n\tLeft mouth {self.mouth[0]}\n\tRight mouth {self.mouth[1]}\n. Mouth corners {self.corners}\n. Smile corners {self.smiley_corners}\n. Left eye {self.left_eye}\n. Right eye {self.right_eye}\n. Upper/Lower normal mouth {self.distances}\n. Upper/Lower points smiling {self.distances_smiling}.Texting test {self.texting_test}\n. Speech test {self.speech_test}\n"
+        return f"Mouth details are:\n\tLeft mouth {self.mouth[0]}\n\tRight mouth {self.mouth[1]}\n. Mouth corners {self.corners}\n. Smile corners {self.smiley_corners}\n. Left eye {self.left_eye}\n. Right eye {self.right_eye}\n. Upper/Lower normal mouth {self.distances}\n. Upper/Lower points smiling {self.distances_smiling}.Texting test {self.texting_test}\n. Speech test {self.speech_test}\n"
 
 
 def build_neural(learning_rate, input_size, layer1_size, layer2_size, output_size):
@@ -54,7 +95,6 @@ def train():
 
 def preditct():
     pass
-
 
 # (X_train, y_train), (X_test, y_test) = mnist.load_data()
 # X_train = X_train.reshape(60000, 784)
