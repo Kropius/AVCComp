@@ -108,8 +108,10 @@ class preprocess_data:
         :return: returning only the corners of the mouth
         """
         full_output = self.build_input_from_photo(self.detecting_face_parts(image_path))
-        return {'left_mouth_corner': full_output['left_mouth_corner'],
-                'right_mouth_corner': full_output['right_mouth_corner']}
+        return {'left_mouth_corner_smiling': full_output['left_mouth_corner'],
+                'right_mouth_corner_smiling': full_output['right_mouth_corner'],
+                "upper_most_point_smiling":full_output["upper_most_point"],
+                "lower_most_point_smiling":full_output["lower_most_point"]}
 
     def build_input_from_photo(self, array_of_coordinates):
         array_of_coordinates = {x: y for i in array_of_coordinates for x, y in i.items()}
@@ -124,6 +126,8 @@ class preprocess_data:
         output['right_eye'] = right_eye
         output['left_mouth_corner'] = array_of_coordinates['mouth'][0]
         output['right_mouth_corner'] = array_of_coordinates['mouth'][6]
+        output['upper_most_point'] = array_of_coordinates['mouth'][3]
+        output['lower_most_point'] = array_of_coordinates['mouth'][9]
 
         return output
 

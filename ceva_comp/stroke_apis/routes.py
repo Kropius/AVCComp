@@ -62,16 +62,20 @@ def send_texting_test():
 def get_smiley_corners():
     if request.method == 'POST':
         preprocess = preprocessing.preprocess_data()
-        smiley_data = request.get_json()
-        print(smiley_data)
-    return jsonify(smiley_data)
+        f = request.files['image']
+        filename = f.filename
+        f.save(os.path.join(app.config['UPLOAD_FOLDER_PHOTOS'], filename))
+
+    return jsonify(preprocess.return_smile_corners(os.path.join(app.config['UPLOAD_FOLDER_PHOTOS'], filename)))
 
 
 @app.route('/send_final_result', methods=['GET', 'POST'])
 def send_final_result():
     if request.method == "POST":
+        #todo build the dictionary for the class that takes decidsion
         preprocess = preprocessing.preprocess_data()
         data = request.get_json()
+        print(data)
         data = preprocess.build_data_for_decision()
 
     print(data["mouth"], data["smiley_corners"], data["texting_test"], data["speech_test"])

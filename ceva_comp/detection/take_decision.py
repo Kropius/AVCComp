@@ -5,6 +5,7 @@ from keras.optimizers import Adagrad
 from keras.datasets import mnist
 import numpy as np
 from keras.utils import to_categorical
+import numpy as np
 
 
 class builder:
@@ -16,6 +17,15 @@ class builder:
         self.smiley_corners = data['smiley_corners']
         self.texting_test = data['texting_test']
         self.speech_test = data['speech_test']
+        self.distances = (data['upper_point'], data['lower_point'])
+        self.distances_smiling = (data['upper_point_smiling'], data['lower_point_smiling'])
+        print(self.calculate_distance_bettween_corners(), self.calculate_distance_bettween_smiling_corners())
+
+    def calculate_distance_bettween_corners(self):
+        return np.linalg.norm(np.array(self.corners[0]) - np.array(self.corners[1]))
+
+    def calculate_distance_bettween_smiling_corners(self):
+        return np.linalg.norm(np.array(self.smiley_corners[0]) - np.array(self.smiley_corners[1]))
 
 
 def build_neural(learning_rate, input_size, layer1_size, layer2_size, output_size):
