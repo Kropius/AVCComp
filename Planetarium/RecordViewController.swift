@@ -13,10 +13,13 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, AV
     
     @IBOutlet var recordVoiceButton: UIButton!
     @IBOutlet var stopRecordingButton: UIButton!
-    @IBOutlet var sendRecordButton: UIButton!
+    @IBOutlet var warningLabel: UILabel!
+    @IBOutlet var textLabel: UILabel!
     
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
+    var pacientResults: PacientData!
+    var text_id: Int!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +27,11 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, AV
         recordingSession = AVAudioSession.sharedInstance()
         recordVoiceButton.isHidden = true
         recordVoiceButton.isEnabled = false
+        stopRecordingButton.setTitle("Stop recording", for: .normal)
+        stopRecordingButton.isEnabled = false
+        stopRecordingButton.isHidden = true
+        warningLabel.isHidden = true
+        warningLabel.textColor = .red
         
         do {
             try recordingSession.setCategory(.playAndRecord, mode: .default)
@@ -35,7 +43,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, AV
                         print("Allowed")
                         self.recordVoiceButton.isHidden = false
                         self.recordVoiceButton.isEnabled = true
-                        
+                        self.getText()
                     } else {
                         print("Not allowed")
                     }
@@ -44,12 +52,43 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, AV
         } catch {
             print("Can't record!")
         }
-        
-        sendRecordButton.isHidden = true
-        sendRecordButton.isEnabled = false
+    }
+    
+    func getText() {
+        if let url = URL(string: "http://127.0.0.1:5001/get_text") {
+            pacientResults.request(url: url, method: "GET", pacientCompletionHandler: {
+                data, error in
+                if let error = error {
+                    print("Error:", error)
+                    self.warningLabel.isHidden = false
+                    self.warningLabel.text = "Couldn't get the text!"
+                }
+                else {
+                    do {
+                        print(String(data: data!, encoding: String.Encoding.utf8)!)
+                        if let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
+                            if let id = json["id"], let text = json["text"] {
+                                DispatchQueue.main.async {
+                                    self.text_id = id as? Int
+                                    self.textLabel.text = text as? String
+                                }
+                            }
+                        }
+                    } catch let err as NSError{
+                        print(err)
+                        self.warningLabel.isHidden = false
+                        self.warningLabel.text = "Couldn't get the text!"
+                    }
+                }
+            })
+        }
     }
     
     @IBAction func record(_ sender: Any) {
+        self.stopRecordingButton.isHidden = false
+        self.stopRecordingButton.isEnabled = true
+        warningLabel.isHidden = true
+        
         let audioFileName = getDocumentsDirectory().appendingPathComponent("recording.wav") as URL
         
         let settings: [String : Any] = [
@@ -69,7 +108,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, AV
             self.audioRecorder.record()
         } catch {
             print("nu merge recordingul")
-    //      self.finishRecording(succes: false)
+          self.finishRecording(succes: false)
             
         }
     }
@@ -80,21 +119,60 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, AV
     }
     
     @IBAction func stopRecording(_ sender: Any) {
-        print("S-a salvat cu succes")
         finishRecording(succes: true)
     }
     
     func finishRecording(succes: Bool) {
-        audioRecorder.stop()
-        audioRecorder = nil
-        
-        if succes {
-            recordVoiceButton.titleLabel?.text = "Record"
-            sendRecordButton.isHidden = false
-            sendRecordButton.isEnabled = true
-            
+        if audioRecorder != nil {
+            audioRecorder.stop()
+            audioRecorder = nil
         }
-        else {
+        
+        warningLabel.isHidden = false
+        if succes {
+            self.recordVoiceButton.setTitle("Start Recording", for: .normal)
+            
+            if self.stopRecordingButton.titleLabel?.text == "Send recording" {
+                print("trimit")
+                if let recording = NSData(contentsOf: getDocumentsDirectory().appendingPathComponent("recording.wav")) {
+                    guard let url = URL(string: "http://127.0.0.1:5001/parse_voice") else {
+                               print("Eroare la request inregistrare!")
+                               return
+                           }
+                    
+                    let bodyParams = ["id_text": text_id]
+                    let boundary = pacientResults.generateBoundaryString()
+                    let body = pacientResults.createBody(bodyParams: bodyParams as? [String : Int], param: "recording", data: recording as Data, boundary: boundary, filename: "recording.wav", mimetype: "audio/x-wav")
+                    
+                    pacientResults.request(url: url, method: "POST", body: body, boundary: boundary, pacientCompletionHandler: { data,error in
+                            if let error = error {
+                                print(error)
+                                return
+                            } else {
+                                DispatchQueue.main.async {
+                                    print(String(data: data!,encoding: String.Encoding.utf8)!)
+                                    self.pacientResults.recordingDetails = data
+                                    self.stopRecordingButton.titleLabel?.text = "Stop recording"
+                                    self.stopRecordingButton.isEnabled = false
+                                    self.stopRecordingButton.isHidden = true
+                                    self.warningLabel.text = "Recording sent with succes!"
+                                    if let textVC = self.storyboard?.instantiateViewController(identifier: "TextViewController") as? TextViewController {
+                                        textVC.pacientResults = self.pacientResults
+                                        self.navigationController?.pushViewController(textVC, animated: true)
+                                    }
+                                }
+                            }
+                    })
+                }
+                    
+            } else {
+                print("opresc")
+                self.stopRecordingButton.setTitle("Send recording", for: .normal)
+                self.warningLabel.text = "Recording saved!"
+            }
+        } else {
+            print("eroare")
+            warningLabel.text = "There was a problem with the recording!"
             recordVoiceButton.titleLabel?.text = "Record again"
         }
     }
@@ -103,14 +181,8 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, AV
         if !flag {
             finishRecording(succes: false)
         }
-        else{
-//            let recordedAudio = RecordedAudio()
-//            recordedAudio.filePathUrl = recorder.url
-//            recordedAudio.title = recorder.url.lastPathComponent
-//            print(recordedAudio.title)
-
-        }
     }
+    
     /*
     // MARK: - Navigation
 

@@ -163,40 +163,112 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yh6-GS-Fbq">
-                                <rect key="frame" x="108" y="134" width="104" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgd-Jf-muQ">
+                                <rect key="frame" x="100" y="182.5" width="120" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Stop recording"/>
+                                <connections>
+                                    <action selector="stopRecording:" destination="YhZ-X5-M0x" eventType="touchUpInside" id="ktK-VQ-Dil"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kqb-G0-GF1">
+                                <rect key="frame" x="138" y="246.5" width="44" height="21.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQh-PF-PYb">
+                                <rect key="frame" x="16" y="48" width="288" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yh6-GS-Fbq">
+                                <rect key="frame" x="99" y="88.5" width="122" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Start recording"/>
                                 <connections>
                                     <action selector="record:" destination="YhZ-X5-M0x" eventType="touchUpInside" id="NBn-ax-oVH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgd-Jf-muQ">
-                                <rect key="frame" x="144" y="253" width="32" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Stop"/>
-                                <connections>
-                                    <action selector="stopRecording:" destination="YhZ-X5-M0x" eventType="touchUpInside" id="ktK-VQ-Dil"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bCV-09-H7I">
-                                <rect key="frame" x="108" y="425" width="105" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Send recording"/>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Kqb-G0-GF1" firstAttribute="centerX" secondItem="bgd-Jf-muQ" secondAttribute="centerX" id="6eU-ma-KbX"/>
+                            <constraint firstItem="bgd-Jf-muQ" firstAttribute="top" secondItem="Yh6-GS-Fbq" secondAttribute="bottom" constant="60" id="BiW-Xo-TUJ"/>
+                            <constraint firstItem="hQh-PF-PYb" firstAttribute="centerX" secondItem="u89-EJ-fsi" secondAttribute="centerX" id="Hbr-M0-yfi"/>
+                            <constraint firstItem="u89-EJ-fsi" firstAttribute="trailing" secondItem="hQh-PF-PYb" secondAttribute="trailing" constant="16" id="Q1z-KF-iqf"/>
+                            <constraint firstItem="bgd-Jf-muQ" firstAttribute="centerX" secondItem="Yh6-GS-Fbq" secondAttribute="centerX" id="QC6-VR-ULO"/>
+                            <constraint firstItem="hQh-PF-PYb" firstAttribute="top" secondItem="u89-EJ-fsi" secondAttribute="top" constant="48" id="UEE-JK-b3P"/>
+                            <constraint firstItem="Kqb-G0-GF1" firstAttribute="top" secondItem="bgd-Jf-muQ" secondAttribute="bottom" constant="30" id="aVf-ir-WUb"/>
+                            <constraint firstItem="hQh-PF-PYb" firstAttribute="leading" secondItem="u89-EJ-fsi" secondAttribute="leading" constant="16" id="g96-gh-XMR"/>
+                            <constraint firstItem="Yh6-GS-Fbq" firstAttribute="top" secondItem="hQh-PF-PYb" secondAttribute="bottom" constant="20" id="gMA-x5-UiG"/>
+                            <constraint firstItem="Yh6-GS-Fbq" firstAttribute="centerX" secondItem="u89-EJ-fsi" secondAttribute="centerX" id="v5S-mt-qPa"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="u89-EJ-fsi"/>
                     </view>
                     <connections>
                         <outlet property="recordVoiceButton" destination="Yh6-GS-Fbq" id="4DQ-DG-35q"/>
-                        <outlet property="sendRecordButton" destination="bCV-09-H7I" id="ZGP-Dg-IuQ"/>
                         <outlet property="stopRecordingButton" destination="bgd-Jf-muQ" id="Ufx-MA-lIw"/>
+                        <outlet property="textLabel" destination="hQh-PF-PYb" id="liv-bh-2I8"/>
+                        <outlet property="warningLabel" destination="Kqb-G0-GF1" id="29D-eN-RP5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iJG-Zo-w0J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1479" y="374"/>
+            <point key="canvasLocation" x="1477.5" y="373.94366197183098"/>
+        </scene>
+        <!--Text View Controller-->
+        <scene sceneID="GwP-Wf-8TF">
+            <objects>
+                <viewController storyboardIdentifier="TextViewController" id="aR4-gn-Qja" customClass="TextViewController" customModule="Planetarium" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lHf-gx-KeR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0FC-ag-g0M">
+                                <rect key="frame" x="16" y="50" width="288" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="write the text" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1NM-iv-UzV">
+                                <rect key="frame" x="16" y="110.5" width="288" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fmt-Ro-hLW">
+                                <rect key="frame" x="127" y="181.5" width="66" height="30"/>
+                                <state key="normal" title="Send text"/>
+                                <connections>
+                                    <action selector="sendText:" destination="aR4-gn-Qja" eventType="touchUpInside" id="lU8-Ui-koe"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="0FC-ag-g0M" firstAttribute="leading" secondItem="hYg-p6-0oO" secondAttribute="leading" constant="16" id="8F4-BA-1g2"/>
+                            <constraint firstItem="1NM-iv-UzV" firstAttribute="leading" secondItem="hYg-p6-0oO" secondAttribute="leading" constant="16" id="G41-aO-Esg"/>
+                            <constraint firstItem="hYg-p6-0oO" firstAttribute="trailing" secondItem="1NM-iv-UzV" secondAttribute="trailing" constant="16" id="Lqw-ud-CpP"/>
+                            <constraint firstItem="0FC-ag-g0M" firstAttribute="centerX" secondItem="hYg-p6-0oO" secondAttribute="centerX" id="MD7-KN-Ws0"/>
+                            <constraint firstItem="hYg-p6-0oO" firstAttribute="trailing" secondItem="0FC-ag-g0M" secondAttribute="trailing" constant="16" id="YLw-s8-Rpx"/>
+                            <constraint firstItem="Fmt-Ro-hLW" firstAttribute="top" secondItem="1NM-iv-UzV" secondAttribute="bottom" constant="37" id="hW4-vH-9Ob"/>
+                            <constraint firstItem="1NM-iv-UzV" firstAttribute="centerX" secondItem="0FC-ag-g0M" secondAttribute="centerX" id="iPo-Bb-VSF"/>
+                            <constraint firstItem="0FC-ag-g0M" firstAttribute="top" secondItem="hYg-p6-0oO" secondAttribute="top" constant="50" id="jdA-OF-7XG"/>
+                            <constraint firstItem="1NM-iv-UzV" firstAttribute="top" secondItem="0FC-ag-g0M" secondAttribute="bottom" constant="40" id="nN5-d1-kgV"/>
+                            <constraint firstItem="Fmt-Ro-hLW" firstAttribute="centerX" secondItem="1NM-iv-UzV" secondAttribute="centerX" id="x2f-J8-75c"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="hYg-p6-0oO"/>
+                    </view>
+                    <connections>
+                        <outlet property="sendButton" destination="Fmt-Ro-hLW" id="nS0-aN-A5P"/>
+                        <outlet property="textField" destination="1NM-iv-UzV" id="Dnv-LW-ZU6"/>
+                        <outlet property="textLabel" destination="0FC-ag-g0M" id="xVo-YI-wmb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n0L-Q1-Ueg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2193.75" y="373.94366197183098"/>
         </scene>
     </scenes>
 </document>

@@ -17,6 +17,8 @@ class PhotoViewController: UIViewController, UINavigationControllerDelegate, UII
     @IBOutlet var sendPhotoButton: UIButton!
     @IBOutlet var selectedPhoto: UIImageView!
     
+    var pacientResults: PacientData!
+    
     var imagePicker: UIImagePickerController!
 
     override func viewDidLoad() {
@@ -26,6 +28,7 @@ class PhotoViewController: UIViewController, UINavigationControllerDelegate, UII
         imagePicker.delegate = self
         sendPhotoButton.isEnabled = false
         sendPhotoButton.isHidden = true
+        pacientResults = PacientData()
     }
     
     @IBAction func takePhoto(sender: Any) {
@@ -76,68 +79,31 @@ class PhotoViewController: UIViewController, UINavigationControllerDelegate, UII
     }
     
     @IBAction func sendPhoto(_ sender: Any) {
-        
         guard let url = URL(string: "http://127.0.0.1:5001/check_symmetry_send_img") else {
-            print("Eroare la request image!")
-            return
-        }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        let data = ["image": selectedPhoto.image!.jpegData(compressionQuality: 0.9)!]
-        let boundary = generateBoundaryString()
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-
-        request.httpBody = createBody(param: "image", imageData: selectedPhoto.image!.jpegData(compressionQuality: 0.9)!, boundary: boundary)
+                   print("Eroare la request image!")
+                   return
+               }
+        let boundary = pacientResults.generateBoundaryString()
+        let body = pacientResults.createBody(param: "image", data: selectedPhoto.image!.jpegData(compressionQuality: 0.9)!, boundary: boundary, filename: "face_photo.jpg", mimetype: "image/jpg")
         
-//        request.setValue("application/json", forHTTPHeaderField: "Accept")
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        do {
-//            request.httpBody = try JSONSerialization.data(withJSONObject: ["image": selectedPhoto.image!.pngData()], options: [])
-//        } catch {
-//            print("Eroare la json to data(image)!")
-//            return
-//        }
-//
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let error = error {
+        pacientResults.request(url: url, method: "POST", body: body, boundary: boundary, pacientCompletionHandler: {data, error in
+            if let error = error{
                 print(error)
                 return
+            } else {
+                DispatchQueue.main.async {
+                    self.pacientResults.photoDetails = data
+                    
+                    if let recordVC = self.storyboard?.instantiateViewController(identifier: "RecordViewController") as? RecordViewController {
+                        recordVC.pacientResults = self.pacientResults
+                        self.navigationController?.pushViewController(recordVC, animated: true)
+                    }
+                }
+                
             }
-            if let data = data, let response = response {
-                print("Response: \(response)")
-                print("Data:",data)
-                let result = String(data: data,encoding: String.Encoding.utf8)
-                print(result)
-            }
-        }
-        task.resume()
-        
-        if let recordVC = storyboard?.instantiateViewController(identifier: "RecordViewController") as? RecordViewController {
-            navigationController?.pushViewController(recordVC, animated: true)
-        }
+        })
     }
     
-    func createBody(param: String, imageData: Data, boundary: String) -> Data {
-        let body = NSMutableData()
-
-        let filename = "face_photo.jpg"
-        let mimetype = "image/jpeg"
-
-        body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
-        body.append("Content-Disposition: form-data; name=\"\(param)\"; filename=\"\(filename)\"\r\n".data(using: String.Encoding.utf8)!)
-        body.append("Content-Type: \(mimetype)\r\n\r\n".data(using: String.Encoding.utf8)!)
-        body.append(imageData)
-        body.append("\r\n".data(using: String.Encoding.utf8)!)
-
-        body.append("--\(boundary)--\r\n".data(using: String.Encoding.utf8)!)
-
-        return body as Data
-    }
-    
-    func generateBoundaryString() -> String {
-        return "Boundary-\(NSUUID().uuidString)"
-    }
-
     /*
     // MARK: - Navigation
 

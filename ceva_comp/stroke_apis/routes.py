@@ -48,6 +48,7 @@ def parse_voice():
 @app.route('/send_texting_test', methods=['GET', 'POST'])
 def send_texting_test():
     if request.method == 'POST':
+        print(request.form.getlist('id_text'),request.form.getlist('input_text'))
         id_text = int(request.form.getlist('id_text')[0])
         input_text = request.form.getlist('input_text')[0]
         differences = preprocessing_voices_and_text.check_similarity(id_text, input_text)

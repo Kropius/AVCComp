@@ -11,6 +11,7 @@ def get_text_from_wav(wav_file):
 
     try:
         text = r.recognize_google(audio)
+        print(text)
         return text
     except:
         print("Sorry could not recognize what you said")
