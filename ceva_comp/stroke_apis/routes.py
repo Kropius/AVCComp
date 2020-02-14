@@ -3,7 +3,7 @@ from stroke_apis import app, conn
 import json
 from werkzeug.utils import secure_filename
 # from detection import preprocessing_images
-from detection import preprocessing,take_decision
+from detection import preprocessing, take_decision
 import os, random, json
 
 
@@ -44,7 +44,7 @@ def parse_voice():
             os.path.join(app.config['UPLOAD_FOLDER_RECORDINGS'], filename))
         # vrem sa determinam asemanarea dintre ce a zis si ce trebuia sa zica
         nr_mistakes = preprocess.check_slurred_speech(said, int(id_text[0]))
-    return jsonify(nr_mistakes)
+    return jsonify({"speech_test":nr_mistakes})
 
 
 @app.route('/send_texting_test', methods=['GET', 'POST'])
@@ -72,7 +72,7 @@ def get_smiley_corners():
 @app.route('/send_final_result', methods=['GET', 'POST'])
 def send_final_result():
     if request.method == "POST":
-        #todo build the dictionary for the class that takes decidsion
+        # todo build the dictionary for the class that takes decidsion
         preprocess = preprocessing.preprocess_data()
         data = request.get_json()
         # print(data)
@@ -80,4 +80,4 @@ def send_final_result():
         builder = take_decision.builder(data)
         print(builder)
         # print(builder)
-    print(data["mouth"], data["smiley_corners"], data["texting_test"], data["speech_test"])
+    return jsonify(builder)

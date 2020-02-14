@@ -70,7 +70,7 @@ class preprocess_data:
                 # specific face part
                 for (x, y) in shape[i:j]:
                     cv2.circle(clone, (x, y), 1, (0, 0, 255), -1)
-                    # print(x,y)
+                    print(x,y)
                     # cv2.imshow("Image", clone)
                     # cv2.waitKey(0)
 
