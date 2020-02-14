@@ -3,7 +3,7 @@ from stroke_apis import app, conn
 import json
 from werkzeug.utils import secure_filename
 # from detection import preprocessing_images
-from detection import preprocessing
+from detection import preprocessing,take_decision
 import os, random, json
 
 
@@ -75,7 +75,9 @@ def send_final_result():
         #todo build the dictionary for the class that takes decidsion
         preprocess = preprocessing.preprocess_data()
         data = request.get_json()
-        print(data)
-        data = preprocess.build_data_for_decision()
-
+        # print(data)
+        data = preprocess.build_data_for_decision(data)
+        builder = take_decision.builder(data)
+        print(builder)
+        # print(builder)
     print(data["mouth"], data["smiley_corners"], data["texting_test"], data["speech_test"])

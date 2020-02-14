@@ -110,8 +110,8 @@ class preprocess_data:
         full_output = self.build_input_from_photo(self.detecting_face_parts(image_path))
         return {'left_mouth_corner_smiling': full_output['left_mouth_corner'],
                 'right_mouth_corner_smiling': full_output['right_mouth_corner'],
-                "upper_most_point_smiling":full_output["upper_most_point"],
-                "lower_most_point_smiling":full_output["lower_most_point"]}
+                "upper_most_point_smiling": full_output["upper_most_point"],
+                "lower_most_point_smiling": full_output["lower_most_point"]}
 
     def build_input_from_photo(self, array_of_coordinates):
         array_of_coordinates = {x: y for i in array_of_coordinates for x, y in i.items()}
@@ -140,8 +140,24 @@ class preprocess_data:
         right_side = right_side_up + right_side_down
         # mean_left, variance_left = get_mean_variance(left_side)
         # mean_right, variance_right = get_mean_variance(right_side)
-        print(left_side, right_side)
+        # print(left_side, right_side)
         return left_side, right_side
 
-    def build_data_for_decision(self,data):
-        pass
+    def build_data_for_decision(self, data):
+        parsed_data = dict()
+        parsed_data['left_mouth'] = data["mouth"]['left_mouth']
+        parsed_data['right_mouth'] = data['mouth']['right_mouth']
+        parsed_data['left_eye'] = data['mouth']['left_eye']
+        parsed_data['right_eye'] = data['mouth']['right_eye']
+        parsed_data['left_mouth_corner'] = data['mouth']['left_mouth_corner']
+        parsed_data['right_mouth_corner'] = data['mouth']['right_mouth_corner']
+        parsed_data['texting_test'] = data['texting_test']
+        parsed_data['speech_test'] = data['speech_test']
+        parsed_data['smiley_corners'] = (
+            data['smile_data']['left_mouth_corner_smiling'], data['smile_data']['left_mouth_corner_smiling'])
+        parsed_data['upper_point'] = data['mouth']['upper_most_point']
+        parsed_data['lower_point'] = data['mouth']['lower_most_point']
+        parsed_data['upper_point_smiling'] = data['smile_data']["upper_most_point_smiling"]
+        parsed_data['lower_point_smiling'] = data['smile_data']["lower_most_point_smiling"]
+        # print(parsed_data)
+        return parsed_data
