@@ -26,6 +26,7 @@ class TextViewController: UIViewController, UINavigationControllerDelegate, UITe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.setBackground()
         sendButton.isHidden = true
         sendButton.isEnabled = false
         textField.delegate = self

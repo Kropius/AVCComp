@@ -44,6 +44,10 @@ class preprocess_data:
         text = conn.execute("select text from texts where id = (?)", (original_text_id,)).fetchone()[0]
         return lv.distance(text, input_text), len("".join(text))
 
+    def parse_coordinates(self, coordinates):
+        coord = list(map(lambda x: np.var(np.array(x)),coordinates))
+        return coord
+
     def detecting_face_parts(self, image_path):
         detector = dlib.get_frontal_face_detector()
         predictor = dlib.shape_predictor("detection/static/shape_predictor_68_face_landmarks.dat")
@@ -71,9 +75,9 @@ class preprocess_data:
                 # specific face part
                 for (x, y) in shape[i:j]:
                     cv2.circle(clone, (x, y), 1, (0, 0, 255), -1)
-                    print(x, y)
-                    cv2.imshow("Image", clone)
-                    cv2.waitKey(0)
+                    # print(x, y)
+                    # cv2.imshow("Image", clone)
+                    # cv2.waitKey(0)
 
                 my_out = list(map(lambda x: [int(x[0]), int(x[1])], shape[i:j]))
 

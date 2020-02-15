@@ -72,9 +72,12 @@ def get_smiley_corners():
 @app.route('/get_movement_disorder', methods=['GET', 'POST'])
 def get_movement_disorder():
     if request.method == 'POST':
-        data = request.get_data().deocde('utf-8')
-        print(data)
-    return jsonify(data)
+        data = request.get_data().decode()
+        json_file = json.loads(data)
+        # print(json_file["coordinates"])
+        preprocess = preprocessing.preprocess_data()
+        x=preprocess.parse_coordinates(json_file["coordinates"])
+    return jsonify(x)
 
 
 @app.route('/send_final_result', methods=['GET', 'POST'])
@@ -85,6 +88,7 @@ def send_final_result():
         data = request.get_data().decode('utf-8')
         data = data.replace("\\n", "\n")
         data = data.replace("&", ", ")
+        print(data)
         good_data = "{" + data + "}"
         json_file = json.loads(good_data)
         data = preprocess.build_data_for_decision(json_file)

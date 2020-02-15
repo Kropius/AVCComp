@@ -17,6 +17,7 @@ class ResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getResult()
+        view.setBackground()
         // Do any additional setup after loading the view.
     }
     
@@ -35,12 +36,10 @@ class ResultViewController: UIViewController {
             "\"firstPhotoDetails\"": String(data: pacientResult.firstPhotoDetails!, encoding: String.Encoding.utf8)!,
             "\"secondPhotoDetails\"": String(data: pacientResult.secondPhotoDetails!, encoding: String.Encoding.utf8)!,
             "\"recordingDetails\"": String(data: pacientResult.recordingDetails!, encoding: String.Encoding.utf8)!,
+            "\"armWeaknessDetails\"": String(data: pacientResult.armWeaknessDetails!, encoding: String.Encoding.utf8)!,
             "\"textDetails\"": String(data: pacientResult.textDetails!, encoding: String.Encoding.utf8)!
         ]
         let data = getPostString(params: body).data(using: String.Encoding.utf8)
-//        print(String(data: pacientResult.secondPhotoDetails, encoding: String.Encoding.utf8))
-    
-//        print(String(data: body as Data, encoding: String.Encoding.utf8))
         if let url = URL(string: "http://127.0.0.1:5001/send_final_result") {
             pacientResult.request(url: url, method: "POST", body: data) { (data, error) in
                 if let error = error {
@@ -48,15 +47,22 @@ class ResultViewController: UIViewController {
                     self.resultLabel.text = error as? String
                 }
                 if data != nil {
+                    let ceva = String(data: data!, encoding: String.Encoding.utf8)!
+                    let verdict = ceva.index(ceva.startIndex,offsetBy: 16)
                     DispatchQueue.main.async {
-                        self.resultLabel.text = String(data: data!, encoding: String.Encoding.utf8)
-//                        print(String(data: data!, encoding: String.Encoding.utf8))
+                        if ceva[verdict] == "1" {
+                            self.resultLabel.text = "Ai atac cerebral vascular!"
+                            self.resultLabel.textColor = .red
+                        } else {
+                            self.resultLabel.text = "Esti sanatos!"
+                            self.resultLabel.textColor = .green
+                        }
                     }
-                   
                 }
             }
         }
     }
+
     
 
     /*

@@ -25,6 +25,7 @@ class PhotoViewController: UIViewController, UINavigationControllerDelegate, UII
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.setBackground()
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         sendPhotoButton.isEnabled = false

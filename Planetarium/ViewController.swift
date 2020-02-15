@@ -43,20 +43,20 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     func makeNavigationBarTransparent() {
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default) //UIImage.init(named: "transparent.png")
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = .clear
     }
     
     @IBAction func startTest(sender: Any) {
-//        if let photoVC = storyboard?.instantiateViewController(identifier: "PhotoViewController") as? PhotoViewController {
-//            navigationController?.pushViewController(photoVC, animated: true)
-//        }
-        if let photoVC = storyboard?.instantiateViewController(identifier: "ArmWeaknessViewController") as? ArmWeaknessViewController {
-            photoVC.pacientResults = pacientResults
-                   navigationController?.pushViewController(photoVC, animated: true)
-               }
+        if let photoVC = storyboard?.instantiateViewController(identifier: "PhotoViewController") as? PhotoViewController {
+            navigationController?.pushViewController(photoVC, animated: true)
+        }
+//        if let photoVC = storyboard?.instantiateViewController(identifier: "ArmWeaknessViewController") as? ArmWeaknessViewController {
+//            photoVC.pacientResults = pacientResults
+//                   navigationController?.pushViewController(photoVC, animated: true)
+//               }
     }
     
     @IBAction func goToMap(_ sender: Any) {

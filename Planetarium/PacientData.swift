@@ -13,8 +13,9 @@ struct PacientData {
     var secondPhotoDetails: Data!
     var recordingDetails: Data!
     var textDetails: Data!
+    var armWeaknessDetails: Data!
 
-    func request(url: URL, method: String, body: Data? = nil, boundary: String? = nil, pacientCompletionHandler: @escaping (Data?, Error?) -> Void){
+    func request(url: URL, method: String, body: Data? = nil, header: Bool = false,boundary: String? = nil, pacientCompletionHandler: @escaping (Data?, Error?) -> Void){
         var request = URLRequest(url: url)
         request.httpMethod = method
         if let body = body {
@@ -24,9 +25,9 @@ struct PacientData {
         if let boundary = boundary {
             request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         }
-        else {
-//            request.setValue("application/json", forHTTPHeaderField: "Accept")
-//            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        if header == true {
+            request.setValue("application/json", forHTTPHeaderField: "Accept")
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         }
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in

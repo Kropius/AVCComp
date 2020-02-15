@@ -24,6 +24,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, AV
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.setBackground()
         recordingSession = AVAudioSession.sharedInstance()
         recordVoiceButton.isHidden = true
         recordVoiceButton.isEnabled = false
@@ -33,7 +34,6 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, AV
         warningLabel.isHidden = true
         warningLabel.textColor = .red
 
-        
         do {
             try recordingSession.setCategory(.playAndRecord, mode: .default)
             try recordingSession.setActive(true)
@@ -153,13 +153,14 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, AV
                                 DispatchQueue.main.async {
                                     print(String(data: data!,encoding: String.Encoding.utf8)!)
                                     self.pacientResults.recordingDetails = data
+                                    self.warningLabel.textColor = .green
                                     self.stopRecordingButton.setTitle("Stop recording", for: .normal)
                                     self.stopRecordingButton.isEnabled = false
                                     self.stopRecordingButton.isHidden = true
                                     self.warningLabel.text = "Recording sent with succes!"
-                                    if let textVC = self.storyboard?.instantiateViewController(identifier: "TextViewController") as? TextViewController {
-                                        textVC.pacientResults = self.pacientResults
-                                        self.navigationController?.pushViewController(textVC, animated: true)
+                                    if let armVC = self.storyboard?.instantiateViewController(identifier: "ArmWeaknessViewController") as? ArmWeaknessViewController {
+                                        armVC.pacientResults = self.pacientResults
+                                        self.navigationController?.pushViewController(armVC, animated: true)
                                     }
                                 }
                             }
@@ -168,6 +169,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, AV
                     
             } else {
                 print("opresc")
+                self.warningLabel.textColor = .green
                 self.stopRecordingButton.setTitle("Send recording", for: .normal)
                 self.warningLabel.text = "Recording saved!"
             }
