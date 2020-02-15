@@ -74,11 +74,12 @@ def send_final_result():
     if request.method == "POST":
         # todo build the dictionary for the class that takes decidsion
         preprocess = preprocessing.preprocess_data()
-        data = request.get_data().decode('utf-8')
-        data = data.replace("\\n", "\n")
+        data = request.get_data()
         print(data)
-        json_file = json.loads(data)
-        x = request.form.getlist('secondPhotoDetails')
+        x=request.form.getlist("secondPhotoDetails")
+
+        print(x)
+
 
         # print(x)
 
