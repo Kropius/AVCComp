@@ -105,7 +105,7 @@ class TextViewController: UIViewController, UINavigationControllerDelegate, UITe
                     if let data = data {
                         DispatchQueue.main.async {
                             self.pacientResults.textDetails = data
-                            print(String(data: data, encoding: String.Encoding.utf8))
+//                            print(String(data: data, encoding: String.Encoding.utf8))
                             if let resultVC = self.storyboard?.instantiateViewController(identifier: "ResultViewController") as? ResultViewController {
                                 resultVC.pacientResult = self.pacientResults
                                 self.navigationController?.pushViewController(resultVC, animated: true)

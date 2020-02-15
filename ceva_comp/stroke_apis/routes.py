@@ -74,9 +74,9 @@ def send_final_result():
     if request.method == "POST":
         # todo build the dictionary for the class that takes decidsion
         preprocess = preprocessing.preprocess_data()
-        data = request.get_json()
+        data = request.get_data()
         # print(data)
-        print(data)
+        print(type(data.decode('utf-8')))
         # data = preprocess.build_data_for_decision(data)
         # builder = take_decision.builder(data)
         # print(builder)

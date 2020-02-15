@@ -24,7 +24,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="90a-uO-zbP">
                                 <rect key="frame" x="120" y="221" width="80" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Start Test!"/>
+                                <state key="normal" title="Start Test!">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
                                 <connections>
                                     <action selector="startTestWithSender:" destination="01J-lp-oVM" eventType="touchUpInside" id="66k-q5-gvS"/>
                                 </connections>
@@ -32,12 +34,22 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LJ0-AJ-Q7R">
                                 <rect key="frame" x="107.5" y="317" width="105" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="View the Map"/>
+                                <state key="normal" title="View the Map">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="goToMap:" destination="01J-lp-oVM" eventType="touchUpInside" id="AmI-pH-207"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="08v-bb-f4V">
                                 <rect key="frame" x="131" y="412" width="58" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Call 112"/>
+                                <state key="normal" title="Call 112">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="callEmergency:" destination="01J-lp-oVM" eventType="touchUpInside" id="Tki-2A-OtX"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -65,6 +77,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="52" y="374.66266866566718"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="dAw-ca-kMi">
+            <objects>
+                <viewController storyboardIdentifier="MapViewController" id="ntw-oO-njV" customClass="MapViewController" customModule="Planetarium" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TuI-gQ-GGP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rWa-8W-U5g">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="rWa-8W-U5g" firstAttribute="top" secondItem="f1F-F2-xDO" secondAttribute="top" id="BwL-B4-1xe"/>
+                            <constraint firstItem="f1F-F2-xDO" firstAttribute="bottom" secondItem="rWa-8W-U5g" secondAttribute="bottom" id="QXQ-Kb-JjQ"/>
+                            <constraint firstItem="f1F-F2-xDO" firstAttribute="trailing" secondItem="rWa-8W-U5g" secondAttribute="trailing" id="cDj-tt-VHM"/>
+                            <constraint firstItem="rWa-8W-U5g" firstAttribute="leading" secondItem="f1F-F2-xDO" secondAttribute="leading" id="ffc-9N-8f2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="f1F-F2-xDO"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="rWa-8W-U5g" id="9JD-vG-zXn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bcm-Ol-Zue" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="51" y="1073"/>
         </scene>
         <!--Photo View Controller-->
         <scene sceneID="hlY-k4-aXA">

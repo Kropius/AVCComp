@@ -88,8 +88,8 @@ class PhotoViewController: UIViewController, UINavigationControllerDelegate, UII
         imagePicker.dismiss(animated: true, completion: nil)
     }
     
-    func sendPhoto(body: Data, boundary: String) {
-        guard let url = URL(string: "http://127.0.0.1:5001/check_symmetry_send_img") else {
+    func sendPhoto(body: Data, boundary: String, url: String) {
+        guard let url = URL(string: url) else {
                    print("Eroare la request image!")
                    return
                }
@@ -117,8 +117,8 @@ class PhotoViewController: UIViewController, UINavigationControllerDelegate, UII
     
     @IBAction func sendPhotosButtonPressed(_ sender: Any) {
         let boundary = pacientResults.generateBoundaryString()
-        sendPhoto(body: pacientResults.createBody(param: "image", data: firstPhoto.image!.jpegData(compressionQuality: 0.9)!, boundary: boundary, filename: "normal_face_photo.jpg", mimetype: "image/jpg"),boundary: boundary)
-        sendPhoto(body: pacientResults.createBody(param: "image", data: secondPhoto.image!.jpegData(compressionQuality: 0.9)!, boundary: boundary, filename: "smiley_face_photo.jpg", mimetype: "image/jpg"),boundary: boundary)
+        sendPhoto(body: pacientResults.createBody(param: "image", data: firstPhoto.image!.jpegData(compressionQuality: 0.9)!, boundary: boundary, filename: "normal_face_photo.jpg", mimetype: "image/jpg"),boundary: boundary, url: "http://127.0.0.1:5001/check_symmetry_send_img")
+        sendPhoto(body: pacientResults.createBody(param: "image", data: secondPhoto.image!.jpegData(compressionQuality: 0.9)!, boundary: boundary, filename: "smiley_face_photo.jpg", mimetype: "image/jpg"),boundary: boundary, url: "http://127.0.0.1:5001//get_smiley_corners")
     }
     
     /*
