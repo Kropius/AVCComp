@@ -1,2 +1,2 @@
-UPLOAD_FOLDER_PHOTOS = 'E:\\info\\AVC_COMP\\AVCComp\\ceva_comp\\UPLOADED_FOLDER_PHOTOS'
-UPLOAD_FOLDER_RECORDINGS = 'E:\\info\\AVC_COMP\\AVCComp\\ceva_comp\\UPLOADED_WAVS'
+UPLOAD_FOLDER_PHOTOS = '/Users/irinacercel/Documents/licenta/Planetarium/ceva_comp/UPLOADED_FOLDER_PHOTOS'
+UPLOAD_FOLDER_RECORDINGS = '/Users/irinacercel/Documents/licenta/Planetarium/ceva_comp/UPLOADED_WAVS'

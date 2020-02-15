@@ -14,12 +14,16 @@ class ArmWeaknessViewController: UIViewController {
     @IBOutlet weak var taskLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var countdownLabel: UILabel!
+    @IBOutlet weak var sendResultsButton: UIButton!
 
     var countdown = 3
     var count = 10
     let motionManager = CMMotionManager()
     var timer: Timer!
     var coordinates: [(Double,Double,Double)] = []
+        
+    var mockCoordinates = [(0.22497636645745997, 0.13452730940682117, 0.022041963251696692), (0.22680693413820507, 0.06474429458439875, -0.04879315292905099), (-0.015189990640550047, -0.020964872225630864, -0.16091586758328086), (-0.43130026850881764, -0.07278487417225012, -0.19203855639819153), (-0.7948573569725206, 0.013487304098859215, -0.17295894714255933), (-0.9639135037090861, 0.3193130098868618, -0.022219781783640112), (-1.0366717122705482, 0.30050319215643906, -0.06997842834349165), (-1.0569595213950629, 0.23335919426555288, -0.11872151621099213), (-1.0591346093162857, 0.21899743808574626, -0.13567631352497103)]
+    var pacientResults: PacientData!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +61,33 @@ class ArmWeaknessViewController: UIViewController {
                     let y = data.attitude.roll
                     let z = data.attitude.yaw
                     coordinates.append((x,y,z))
-                    print(type(of:x),y,z)
+                    print(coordinates)
+                }
+            }
+            else {
+                sendResultsButton.isHidden = false
+                sendResultsButton.isEnabled = true
+            }
+        }
+    }
+    func getPostString(params: [String: Any]) -> String {
+           var data = [String]()
+           for(key, value) in params
+           {
+               data.append(key + "=\(value)")
+           }
+           return data.map { String($0) }.joined(separator: "&")
+       }
+    
+    @IBAction func sendCoordinates() {
+        let body = getPostString(params: ["coordinates": mockCoordinates]).data(using: String.Encoding.utf8)
+        if let url = URL(string: "http://127.0.0.1:5001//get_movement_disorder") {
+            print(body)
+            pacientResults.request(url: url, method: "POST", body: body) { (data, error) in
+            if error != nil {
+                print(error)
+            } else if data != nil {
+                print(data)
                 }
             }
         }

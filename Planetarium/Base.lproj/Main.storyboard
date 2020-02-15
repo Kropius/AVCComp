@@ -424,14 +424,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6db-OO-Dlo">
+                                <rect key="frame" x="117" y="269" width="86" height="30"/>
+                                <state key="normal" title="Send results"/>
+                                <connections>
+                                    <action selector="sendCoordinates" destination="EN9-2R-BFh" eventType="touchUpInside" id="ES3-W0-Geq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Qrr-k0-d8k" firstAttribute="trailing" secondItem="X2i-Ms-GTJ" secondAttribute="trailing" constant="16" id="6OT-yg-2RA"/>
                             <constraint firstItem="X2i-Ms-GTJ" firstAttribute="top" secondItem="Qrr-k0-d8k" secondAttribute="top" constant="39" id="CKZ-fD-qAY"/>
                             <constraint firstItem="WcO-uh-6h8" firstAttribute="top" secondItem="X2i-Ms-GTJ" secondAttribute="bottom" constant="36" id="IRH-Ig-7Wi"/>
+                            <constraint firstItem="6db-OO-Dlo" firstAttribute="top" secondItem="DCh-Kl-5aJ" secondAttribute="bottom" constant="38" id="MeG-zL-dP6"/>
                             <constraint firstItem="DCh-Kl-5aJ" firstAttribute="centerX" secondItem="Qrr-k0-d8k" secondAttribute="centerX" constant="-4" id="QdU-EQ-8wT"/>
                             <constraint firstItem="DCh-Kl-5aJ" firstAttribute="top" secondItem="WcO-uh-6h8" secondAttribute="bottom" constant="29" id="Wx3-lp-JuE"/>
+                            <constraint firstItem="6db-OO-Dlo" firstAttribute="centerX" secondItem="Qrr-k0-d8k" secondAttribute="centerX" id="bvT-OI-1cU"/>
                             <constraint firstItem="WcO-uh-6h8" firstAttribute="centerX" secondItem="Qrr-k0-d8k" secondAttribute="centerX" id="j8s-PA-moF"/>
                             <constraint firstItem="X2i-Ms-GTJ" firstAttribute="leading" secondItem="Qrr-k0-d8k" secondAttribute="leading" constant="16" id="l8h-Tm-g16"/>
                             <constraint firstItem="X2i-Ms-GTJ" firstAttribute="centerX" secondItem="Qrr-k0-d8k" secondAttribute="centerX" id="y2e-Yp-WEL"/>
@@ -440,6 +449,7 @@
                     </view>
                     <connections>
                         <outlet property="countdownLabel" destination="DCh-Kl-5aJ" id="aJ1-DD-kf4"/>
+                        <outlet property="sendResultsButton" destination="6db-OO-Dlo" id="ocp-du-WFQ"/>
                         <outlet property="startButton" destination="WcO-uh-6h8" id="xdo-GV-e4w"/>
                         <outlet property="taskLabel" destination="X2i-Ms-GTJ" id="OaX-2n-0TU"/>
                     </connections>

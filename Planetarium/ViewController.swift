@@ -14,6 +14,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet var viewMapButton: UIButton!
     @IBOutlet var callButton: UIButton!
     
+    var pacientResults: PacientData = PacientData()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,6 +54,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
 //            navigationController?.pushViewController(photoVC, animated: true)
 //        }
         if let photoVC = storyboard?.instantiateViewController(identifier: "ArmWeaknessViewController") as? ArmWeaknessViewController {
+            photoVC.pacientResults = pacientResults
                    navigationController?.pushViewController(photoVC, animated: true)
                }
     }
