@@ -24,7 +24,7 @@ def check_symmetry():
 @app.route('/get_text', methods=['GET'])
 def get_voices():
     if request.method == "GET":
-        texts = conn.cursor().execute("select * from text").fetchall()
+        texts = conn.cursor().execute("select * from texts").fetchall()
         id, text = random.choice(texts)
     return jsonify({"id": id, "text": text})
 
@@ -68,6 +68,10 @@ def get_smiley_corners():
 
     return jsonify(preprocess.return_smile_corners(os.path.join(app.config['UPLOAD_FOLDER_PHOTOS'], filename)))
 
+@app.route('/get_movement_disorder',methods = ['GET','POST'])
+def get_movement_disorder():
+    if request.method == 'POST':
+        pass
 
 @app.route('/send_final_result', methods=['GET', 'POST'])
 def send_final_result():
@@ -77,20 +81,9 @@ def send_final_result():
         data = request.get_data().decode('utf-8')
         data = data.replace("\\n","\n")
         data = data.replace("&",", ")
-        # print(data.split("textDetails")[-1])
-        # print(data[18:])
-        # json_file = json.loads(data)
-
         good_data = "{"+data+"}"
         json_file = json.loads(good_data)
-
-
-
-
-        # print(x)
-
         data = preprocess.build_data_for_decision(json_file)
         builder = take_decision.builder(data)
-        # print(builder)
         print(builder)
-    return jsonify({"ceva": "ceva"})
+    return jsonify({"verditct":1 if builder.compute_symptoms() else 0})
