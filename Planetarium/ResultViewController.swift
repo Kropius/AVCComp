@@ -32,10 +32,10 @@ class ResultViewController: UIViewController {
     func getResult() {
         
         let body = [
-            "firstPhotoDetails": String(data: pacientResult.firstPhotoDetails!, encoding: String.Encoding.utf8),
-            "secondPhotoDetails": String(data: pacientResult.secondPhotoDetails!, encoding: String.Encoding.utf8),
-            "recordingDetails": String(data: pacientResult.recordingDetails!, encoding: String.Encoding.utf8),
-            "textDetails": String(data: pacientResult.textDetails!, encoding: String.Encoding.utf8)
+            "firstPhotoDetails": String(data: pacientResult.firstPhotoDetails!, encoding: String.Encoding.utf8)!,
+            "secondPhotoDetails": String(data: pacientResult.secondPhotoDetails!, encoding: String.Encoding.utf8)!,
+            "recordingDetails": String(data: pacientResult.recordingDetails!, encoding: String.Encoding.utf8)!,
+            "textDetails": String(data: pacientResult.textDetails!, encoding: String.Encoding.utf8)!
         ]
         let data = getPostString(params: body).data(using: String.Encoding.utf8)
 //        print(String(data: pacientResult.secondPhotoDetails, encoding: String.Encoding.utf8))
