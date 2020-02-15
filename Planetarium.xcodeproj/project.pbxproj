@@ -13,6 +13,7 @@
 		AF74C68A23E88292001A5D61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF74C68823E88292001A5D61 /* Main.storyboard */; };
 		AFD6799723F42DDC006989DF /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD6799623F42DDC006989DF /* TextViewController.swift */; };
 		AFDBE48623F73D7300344F3D /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDBE48523F73D7300344F3D /* ResultViewController.swift */; };
+		AFDBE48823F7653A00344F3D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDBE48723F7653A00344F3D /* MapViewController.swift */; };
 		AFE99F9923EEE9CF004912BE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE99F9823EEE9CF004912BE /* SceneDelegate.swift */; };
 		AFE99F9B23EEEBC1004912BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFE99F9A23EEEBC1004912BE /* LaunchScreen.storyboard */; };
 		AFE99F9D23EF1A35004912BE /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE99F9C23EF1A35004912BE /* PhotoViewController.swift */; };
@@ -29,6 +30,7 @@
 		AF74C68B23E88292001A5D61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFD6799623F42DDC006989DF /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		AFDBE48523F73D7300344F3D /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		AFDBE48723F7653A00344F3D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AFE99F9823EEE9CF004912BE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		AFE99F9A23EEEBC1004912BE /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AFE99F9C23EF1A35004912BE /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				AF74C67D23E88291001A5D61 /* AppDelegate.swift */,
 				AFE99F9823EEE9CF004912BE /* SceneDelegate.swift */,
 				AF74C67F23E88291001A5D61 /* ViewController.swift */,
+				AFDBE48723F7653A00344F3D /* MapViewController.swift */,
 				AFE99F9C23EF1A35004912BE /* PhotoViewController.swift */,
 				AFE99F9E23EF4EC1004912BE /* RecordViewController.swift */,
 				AFD6799623F42DDC006989DF /* TextViewController.swift */,
@@ -157,6 +160,7 @@
 				AFF13DBC23F3278D00C52071 /* PacientData.swift in Sources */,
 				AF74C68023E88291001A5D61 /* ViewController.swift in Sources */,
 				AFDBE48623F73D7300344F3D /* ResultViewController.swift in Sources */,
+				AFDBE48823F7653A00344F3D /* MapViewController.swift in Sources */,
 				AFE99F9F23EF4EC1004912BE /* RecordViewController.swift in Sources */,
 				AF74C67E23E88291001A5D61 /* AppDelegate.swift in Sources */,
 				AFD6799723F42DDC006989DF /* TextViewController.swift in Sources */,

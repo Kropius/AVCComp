@@ -32,6 +32,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, AV
         stopRecordingButton.isHidden = true
         warningLabel.isHidden = true
         warningLabel.textColor = .red
+
         
         do {
             try recordingSession.setCategory(.playAndRecord, mode: .default)
