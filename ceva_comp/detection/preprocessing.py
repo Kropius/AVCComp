@@ -145,19 +145,19 @@ class preprocess_data:
 
     def build_data_for_decision(self, data):
         parsed_data = dict()
-        parsed_data['left_mouth'] = data["mouth"]['left_mouth']
-        parsed_data['right_mouth'] = data['mouth']['right_mouth']
-        parsed_data['left_eye'] = data['mouth']['left_eye']
-        parsed_data['right_eye'] = data['mouth']['right_eye']
-        parsed_data['left_mouth_corner'] = data['mouth']['left_mouth_corner']
-        parsed_data['right_mouth_corner'] = data['mouth']['right_mouth_corner']
-        parsed_data['texting_test'] = data['texting_test']
+        parsed_data['left_mouth'] = data['left_mouth']
+        parsed_data['right_mouth'] = data['right_mouth']
+        parsed_data['left_eye'] = data['left_eye']
+        parsed_data['right_eye'] = data['right_eye']
+        parsed_data['left_mouth_corner'] = data['left_mouth_corner']
+        parsed_data['right_mouth_corner'] = data['right_mouth_corner']
+        parsed_data['texting_test'] = (data['mistakes'],data['total_letters'])
         parsed_data['speech_test'] = data['speech_test']
         parsed_data['smiley_corners'] = (
-            data['smile_data']['left_mouth_corner_smiling'], data['smile_data']['left_mouth_corner_smiling'])
-        parsed_data['upper_point'] = data['mouth']['upper_most_point']
-        parsed_data['lower_point'] = data['mouth']['lower_most_point']
-        parsed_data['upper_point_smiling'] = data['smile_data']["upper_most_point_smiling"]
-        parsed_data['lower_point_smiling'] = data['smile_data']["lower_most_point_smiling"]
+            data['left_mouth_corner_smiling'], data['right_mouth_corner_smiling'])
+        parsed_data['upper_point'] = data['upper_most_point']
+        parsed_data['lower_point'] = data['lower_most_point']
+        parsed_data['upper_point_smiling'] = data["upper_most_point_smiling"]
+        parsed_data['lower_point_smiling'] = data["lower_most_point_smiling"]
         # print(parsed_data)
         return parsed_data
