@@ -34,7 +34,7 @@ class preprocess_data:
         text_said = text_said.split(' ')
         original_text = original_text.split(' ')
         mistakes = 0
-        for i in range(len(text_said)):
+        for i in range(min(len(original_text),len(text_said))):
             if text_said[i] != original_text[i]:
                 mistakes += 1
         return mistakes
@@ -71,8 +71,8 @@ class preprocess_data:
                 for (x, y) in shape[i:j]:
                     cv2.circle(clone, (x, y), 1, (0, 0, 255), -1)
                     print(x, y)
-                    # cv2.imshow("Image", clone)
-                    # cv2.waitKey(0)
+                    cv2.imshow("Image", clone)
+                    cv2.waitKey(0)
 
                 my_out = list(map(lambda x: [int(x[0]), int(x[1])], shape[i:j]))
 
