@@ -20,16 +20,28 @@ class ResultViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    func getPostString(params: [String: Any]) -> String {
+          var data = [String]()
+          for(key, value) in params
+          {
+              data.append(key + "=\(value)")
+          }
+          return data.map { String($0) }.joined(separator: "&")
+      }
+    
     func getResult() {
-        var body = NSMutableData()
+        let body = [
+            "firstPhotoDetails": String(data: pacientResult.firstPhotoDetails!, encoding: String.Encoding.utf8),
+            "secondPhotoDetails": String(data: pacientResult.secondPhotoDetails!, encoding: String.Encoding.utf8),
+            "recordingDetails": String(data: pacientResult.recordingDetails!, encoding: String.Encoding.utf8),
+            "textDetails": String(data: pacientResult.textDetails!, encoding: String.Encoding.utf8)
+        ]
+        let data = getPostString(params: body).data(using: String.Encoding.utf8)
 //        print(String(data: pacientResult.secondPhotoDetails, encoding: String.Encoding.utf8))
-        body.append(pacientResult.firstPhotoDetails)
-        body.append(pacientResult.secondPhotoDetails)
-        body.append(pacientResult.recordingDetails)
-        body.append(pacientResult.textDetails)
-        print(String(data: body as Data, encoding: String.Encoding.utf8))
+    
+//        print(String(data: body as Data, encoding: String.Encoding.utf8))
         if let url = URL(string: "http://127.0.0.1:5001/send_final_result") {
-            pacientResult.request(url: url, method: "POST", body: body as Data) { (data, error) in
+            pacientResult.request(url: url, method: "POST", body: data) { (data, error) in
                 if let error = error {
                     print(error)
                     self.resultLabel.text = error as? String

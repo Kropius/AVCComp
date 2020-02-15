@@ -76,7 +76,10 @@ def send_final_result():
         preprocess = preprocessing.preprocess_data()
         data = request.get_data()
         # print(data)
-        print(type(data.decode('utf-8')))
+        x=request.form.getlist('secondPhotoDetails')
+
+        print(x)
+
         # data = preprocess.build_data_for_decision(data)
         # builder = take_decision.builder(data)
         # print(builder)
