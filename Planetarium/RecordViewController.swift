@@ -153,7 +153,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, AV
                                 DispatchQueue.main.async {
                                     print(String(data: data!,encoding: String.Encoding.utf8)!)
                                     self.pacientResults.recordingDetails = data
-                                    self.stopRecordingButton.titleLabel?.text = "Stop recording"
+                                    self.stopRecordingButton.setTitle("Stop recording", for: .normal)
                                     self.stopRecordingButton.isEnabled = false
                                     self.stopRecordingButton.isHidden = true
                                     self.warningLabel.text = "Recording sent with succes!"

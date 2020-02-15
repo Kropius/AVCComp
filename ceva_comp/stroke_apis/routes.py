@@ -75,7 +75,7 @@ def send_final_result():
         # todo build the dictionary for the class that takes decidsion
         preprocess = preprocessing.preprocess_data()
         data = request.get_data()
-        # print(data)
+        print(data)
         x=request.form.getlist('secondPhotoDetails')
 
         print(x)
