@@ -30,6 +30,7 @@ class ResultViewController: UIViewController {
       }
     
     func getResult() {
+        
         let body = [
             "firstPhotoDetails": String(data: pacientResult.firstPhotoDetails!, encoding: String.Encoding.utf8),
             "secondPhotoDetails": String(data: pacientResult.secondPhotoDetails!, encoding: String.Encoding.utf8),
