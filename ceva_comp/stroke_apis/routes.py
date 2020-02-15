@@ -68,10 +68,14 @@ def get_smiley_corners():
 
     return jsonify(preprocess.return_smile_corners(os.path.join(app.config['UPLOAD_FOLDER_PHOTOS'], filename)))
 
-@app.route('/get_movement_disorder',methods = ['GET','POST'])
+
+@app.route('/get_movement_disorder', methods=['GET', 'POST'])
 def get_movement_disorder():
     if request.method == 'POST':
-        pass
+        data = request.get_data().deocde('utf-8')
+        print(data)
+    return jsonify(data)
+
 
 @app.route('/send_final_result', methods=['GET', 'POST'])
 def send_final_result():
@@ -79,11 +83,11 @@ def send_final_result():
         # todo build the dictionary for the class that takes decidsion
         preprocess = preprocessing.preprocess_data()
         data = request.get_data().decode('utf-8')
-        data = data.replace("\\n","\n")
-        data = data.replace("&",", ")
-        good_data = "{"+data+"}"
+        data = data.replace("\\n", "\n")
+        data = data.replace("&", ", ")
+        good_data = "{" + data + "}"
         json_file = json.loads(good_data)
         data = preprocess.build_data_for_decision(json_file)
         builder = take_decision.builder(data)
         print(builder)
-    return jsonify({"verditct":1 if builder.compute_symptoms() else 0})
+    return jsonify({"verditct": 1 if builder.compute_symptoms() else 0})

@@ -20,6 +20,7 @@ class preprocess_data:
 
         try:
             text = r.recognize_google(audio)
+            print(f"Recognized Text: {text}")
             return text
         except:
             print("Sorry could not recognize what you said")
