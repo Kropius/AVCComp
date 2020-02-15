@@ -70,7 +70,7 @@ class preprocess_data:
                 # specific face part
                 for (x, y) in shape[i:j]:
                     cv2.circle(clone, (x, y), 1, (0, 0, 255), -1)
-                    print(x,y)
+                    print(x, y)
                     # cv2.imshow("Image", clone)
                     # cv2.waitKey(0)
 
@@ -145,19 +145,21 @@ class preprocess_data:
 
     def build_data_for_decision(self, data):
         parsed_data = dict()
-        parsed_data['left_mouth'] = data['left_mouth']
-        parsed_data['right_mouth'] = data['right_mouth']
-        parsed_data['left_eye'] = data['left_eye']
-        parsed_data['right_eye'] = data['right_eye']
-        parsed_data['left_mouth_corner'] = data['left_mouth_corner']
-        parsed_data['right_mouth_corner'] = data['right_mouth_corner']
-        parsed_data['texting_test'] = (data['mistakes'],data['total_letters'])
-        parsed_data['speech_test'] = data['speech_test']
+
+        parsed_data['left_mouth'] = data['firstPhotoDetails']['left_mouth']
+        parsed_data['right_mouth'] = data['firstPhotoDetails']['right_mouth']
+        parsed_data['left_eye'] = data['firstPhotoDetails']['left_eye']
+        parsed_data['right_eye'] = data['firstPhotoDetails']['right_eye']
+        parsed_data['left_mouth_corner'] = data['firstPhotoDetails']['left_mouth_corner']
+        parsed_data['right_mouth_corner'] = data['firstPhotoDetails']['right_mouth_corner']
+        parsed_data['texting_test'] = (data['textDetails']['mistakes'], data['textDetails']['total_letters'])
+        parsed_data['speech_test'] = data['recordingDetails']['speech_test']
         parsed_data['smiley_corners'] = (
-            data['left_mouth_corner_smiling'], data['right_mouth_corner_smiling'])
-        parsed_data['upper_point'] = data['upper_most_point']
-        parsed_data['lower_point'] = data['lower_most_point']
-        parsed_data['upper_point_smiling'] = data["upper_most_point_smiling"]
-        parsed_data['lower_point_smiling'] = data["lower_most_point_smiling"]
+            data['secondPhotoDetails']['left_mouth_corner_smiling'],
+            data['secondPhotoDetails']['right_mouth_corner_smiling'])
+        parsed_data['upper_point'] = data['firstPhotoDetails']['upper_most_point']
+        parsed_data['lower_point'] = data['firstPhotoDetails']['lower_most_point']
+        parsed_data['upper_point_smiling'] = data['secondPhotoDetails']["upper_most_point_smiling"]
+        parsed_data['lower_point_smiling'] = data['secondPhotoDetails']["lower_most_point_smiling"]
         # print(parsed_data)
         return parsed_data

@@ -74,17 +74,23 @@ def send_final_result():
     if request.method == "POST":
         # todo build the dictionary for the class that takes decidsion
         preprocess = preprocessing.preprocess_data()
-        data = request.get_data()
-        print(data)
-        x=request.form.getlist("secondPhotoDetails")
+        data = request.get_data().decode('utf-8')
+        data = data.replace("\\n","\n")
+        data = data.replace("&",", ")
+        # print(data.split("textDetails")[-1])
+        # print(data[18:])
+        # json_file = json.loads(data)
 
-        print(x)
+        good_data = "{"+data+"}"
+        json_file = json.loads(good_data)
+
+
 
 
         # print(x)
 
-        # data = preprocess.build_data_for_decision(data)
-        # builder = take_decision.builder(data)
+        data = preprocess.build_data_for_decision(json_file)
+        builder = take_decision.builder(data)
         # print(builder)
-        # print(builder)
+        print(builder)
     return jsonify({"ceva": "ceva"})
