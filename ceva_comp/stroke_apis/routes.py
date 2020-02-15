@@ -44,7 +44,7 @@ def parse_voice():
             os.path.join(app.config['UPLOAD_FOLDER_RECORDINGS'], filename))
         # vrem sa determinam asemanarea dintre ce a zis si ce trebuia sa zica
         nr_mistakes = preprocess.check_slurred_speech(said, int(id_text[0]))
-    return jsonify({"speech_test":nr_mistakes})
+    return jsonify({"speech_test": nr_mistakes})
 
 
 @app.route('/send_texting_test', methods=['GET', 'POST'])
@@ -74,14 +74,16 @@ def send_final_result():
     if request.method == "POST":
         # todo build the dictionary for the class that takes decidsion
         preprocess = preprocessing.preprocess_data()
-        data = request.get_data()
-        # print(data)
-        x=request.form.getlist('secondPhotoDetails')
+        data = request.get_data().decode('utf-8')
+        data = data.replace("\\n", "\n")
+        print(data)
+        json_file = json.loads(data)
+        x = request.form.getlist('secondPhotoDetails')
 
-        print(x)
+        # print(x)
 
         # data = preprocess.build_data_for_decision(data)
         # builder = take_decision.builder(data)
         # print(builder)
         # print(builder)
-    return jsonify({"ceva":"ceva"})
+    return jsonify({"ceva": "ceva"})
