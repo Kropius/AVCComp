@@ -24,13 +24,20 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         viewMapButton.titleLabel?.textColor = .black
         callButton.titleLabel?.textColor = .black
         
-//        startTestButton.layer.cornerRadius = startTestButton.frame.height/2 + 10
-        startTestButton.layer.masksToBounds = false
-        startTestButton.layer.shadowColor = UIColor.black.cgColor
-        startTestButton.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
-        startTestButton.layer.shadowOpacity = 0.2
-        startTestButton.layer.shadowRadius = 1.0
-        startTestButton.layer.borderWidth = 2.0
+        designButton(button: startTestButton)
+        designButton(button: viewMapButton)
+        designButton(button: callButton)
+    }
+    
+    func designButton(button: UIButton) {
+        button.layer.cornerRadius = 10
+        button.layer.masksToBounds = false
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
+        button.layer.shadowOpacity = 0.2
+        button.layer.shadowRadius = 1.0
+        button.layer.borderWidth = 2.0
+        button.contentEdgeInsets = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
     }
     
     func makeNavigationBarTransparent() {
@@ -41,9 +48,12 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     @IBAction func startTest(sender: Any) {
-        if let photoVC = storyboard?.instantiateViewController(identifier: "PhotoViewController") as? PhotoViewController {
-            navigationController?.pushViewController(photoVC, animated: true)
-        }
+//        if let photoVC = storyboard?.instantiateViewController(identifier: "PhotoViewController") as? PhotoViewController {
+//            navigationController?.pushViewController(photoVC, animated: true)
+//        }
+        if let photoVC = storyboard?.instantiateViewController(identifier: "ArmWeaknessViewController") as? ArmWeaknessViewController {
+                   navigationController?.pushViewController(photoVC, animated: true)
+               }
     }
     
     @IBAction func goToMap(_ sender: Any) {
